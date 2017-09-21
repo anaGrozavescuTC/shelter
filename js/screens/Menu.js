@@ -10,8 +10,12 @@ class Menu extends React.Component {
     closeMenu = () => {
         this.props.navigation.navigate('Messages');
     };
+    logOut = () => {
+        this.props.navigation.navigate('Login');
+    };
 
     render() {
+
         return (
             <Container style={styles.container}>
                 <Image source={headerBackground} style={styles.headerImg}/>
@@ -26,7 +30,40 @@ class Menu extends React.Component {
 
 
                 <View>
-                    <Text size={20}> Menu page </Text>
+                    <List style={styles.listItem}>
+                        <ListItem itemHeader first >
+                            <Button full iconLeft transparent>
+                                <Text>Deals</Text>
+                            </Button>
+                        </ListItem>
+
+                        <ListItem itemHeader first >
+                            <Button full iconLeft transparent>
+                                <Text>Messages</Text>
+                            </Button>
+                        </ListItem>
+
+                        <ListItem itemHeader first >
+                            <Button full iconLeft transparent>
+                                <Text>My Profile</Text>
+                            </Button>
+                        </ListItem>
+
+                        <ListItem itemHeader first >
+                            <Button full iconLeft transparent>
+                                <Text>Notifications</Text>
+                            </Button>
+                        </ListItem>
+
+                        <ListItem itemHeader first >
+                            <Button onPress={this.logOut} full iconLeft transparent>
+                                <Text>Logout</Text>
+                            </Button>
+                        </ListItem>
+
+
+                    </List>
+
                 </View>
                 </Content>
             </Container>
