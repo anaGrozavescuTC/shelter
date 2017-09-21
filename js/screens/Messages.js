@@ -1,13 +1,10 @@
 import React from 'react';
-import {View, Text, ScrollView} from 'react-native';
+import {View, Text, ScrollView, Image} from 'react-native';
 import {Container, Header , Content, Button, List, ListItem, Thumbnail, Body} from 'native-base';
-import { FontAwesome } from '@expo/vector-icons/';
-import { MaterialIcons } from '@expo/vector-icons/';
-import { Ionicons } from '@expo/vector-icons/';
-import { Entypo } from '@expo/vector-icons/';
 
-//import { Expo } from 'expo';
-//import { Font } from 'expo';
+var menuImage = require('../../assets/icons/menu-icon.png');
+var searchImage = require('../../assets/icons/search-icon.png');
+var newMsgImage = require('../../assets/icons/new-message.png');
 
 class Messages extends React.Component {
 
@@ -19,15 +16,23 @@ class Messages extends React.Component {
         return(
             <Container>
                 <Header style={styles.header}>
-                    <MaterialIcons name ="menu" onPress={this.openMenu} size={30} style={styles.menuIcon}/>
+                    <Button transparent onPress={this.openMenu} >
+                        <Image source={menuImage}  style={styles.menuIcon}/>
+                    </Button>
                     <Text style={styles.title}> Messages </Text>
-                    <Ionicons name="ios-search-outline" size={30} style={styles.searchIcon} />
+                    <Button transparent>
+                        <Image source={searchImage} style={styles.searchIcon} />
+                    </Button>
                 </Header>
-                <Content  style={styles.content}>
-                    <Button full iconLeft transparent>
-                        <Entypo name="new-message" size={20} style={styles.newMsgIcon}/>
+                <View style={styles.newMsgBtn}>
+                    <Button full transparent iconLeft >
+                        <Image source={newMsgImage} style={styles.newMsgIcon}/>
                         <Text style={styles.newMsgText}>New Message</Text>
                     </Button>
+                </View>
+
+                <Content  style={styles.content}>
+
                     <View style={styles.line} />
                     <ScrollView>
                         <List style={styles.listItem}>
@@ -84,22 +89,22 @@ const styles = {
         backgroundColor: "#fff"
     },
     menuIcon: {
-        color: "#fff",
         marginTop: 10
     },
     searchIcon: {
-        color: "#fff",
         marginTop: 10
     },
     title: {
         color: "#fff",
         fontSize: 16,
-        marginTop: 14,
+        marginTop: 18,
         fontFamily: 'nova-regular'
+    },
+    newMsgBtn: {
+      backgroundColor: "#fff"
     },
     newMsgIcon: {
         marginRight: 10,
-        color: "#22AAF2"
     },
     newMsgText: {
         color: "#22AAF2",
