@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Image} from 'react-native';
+import {View, Text, Image, Dimensions} from 'react-native';
 import {Container, Content, Button, List, ListItem, Thumbnail} from 'native-base';
 import {EvilIcons} from '@expo/vector-icons/';
 
@@ -42,6 +42,7 @@ const styles = {
     headerImg: {
         resizeMode: 'cover',
         top: 0,
+        width: Dimensions.get('window').width
 
     },
     headerInfo: {
