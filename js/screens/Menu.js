@@ -10,6 +10,8 @@ var profileIcon = require('../../assets/icons/profile-icon.png');
 var notificationsIcon = require('../../assets/icons/notifications-icon.png');
 var signoutIcon = require('../../assets/icons/signout-icon.png');
 
+import {user} from '../services/data';
+
 class Menu extends React.Component {
 
     closeMenu = () => {
@@ -31,53 +33,53 @@ class Menu extends React.Component {
                     </Button>
                 </View>
                 <View style={styles.infoText}>
-                    <Text style={styles.name}>Cindy Koebele</Text>
-                    <Text style={styles.info}>Owner, Title Agent</Text>
-                    <Text style={styles.info}>Title-Smart, Inc</Text>
+                    <Text style={styles.name}>{user.name}</Text>
+                   <View>
+                       {user.owner === true ?  <Text style={styles.info}>Owner, {user.title}</Text>  : <Text style={styles.info}>Owner, {user.title}</Text>}
+                   </View>
+                    <Text style={styles.info}>{user.company}</Text>
                 </View>
 
                 <Content style={styles.content}>
 
 
-                    <List style={styles.listItem}>
+                    <List>
                         <View style={styles.line} />
                         <ListItem itemHeader first >
-                            <Button full iconLeft transparent>
+                            <Button full iconLeft transparent style={styles.menuBtn}>
                                 <Image source={dealIcon} style={styles.menuIcon} />
-                                <Text>Deals</Text>
+                                <Text style={styles.menuText}>Deals</Text>
                             </Button>
                         </ListItem>
 
                         <ListItem itemHeader first >
-                            <Button full iconLeft transparent>
+                            <Button full iconLeft transparent style={styles.menuBtn}>
                                 <Image source={msgIcon} style={styles.menuIcon} />
-                                <Text>Messages</Text>
+                                <Text style={styles.menuText}>Messages</Text>
                             </Button>
                         </ListItem>
 
                         <ListItem itemHeader first >
-                            <Button full iconLeft transparent>
+                            <Button full iconLeft transparent style={styles.menuBtn}>
                                 <Image source={profileIcon} style={styles.menuIcon} />
-                                <Text>My Profile</Text>
+                                <Text style={styles.menuText}>My Profile</Text>
                             </Button>
                         </ListItem>
 
                         <ListItem itemHeader first >
-                            <Button full iconLeft transparent>
+                            <Button full iconLeft transparent style={styles.menuBtn}>
                                 <Image source={notificationsIcon} style={styles.menuIcon} />
-                                <Text>Notifications</Text>
+                                <Text style={styles.menuText}>Notifications</Text>
                             </Button>
                         </ListItem>
 
                         <ListItem itemHeader first >
-                            <Button onPress={this.logOut} full iconLeft transparent>
+                            <Button onPress={this.logOut} full iconLeft transparent style={styles.menuBtn}>
                                 <Image source={signoutIcon} style={styles.menuIcon} />
-                                <Text>Sign Out</Text>
+                                <Text style={styles.menuText}>Sign Out</Text>
                             </Button>
                         </ListItem>
                     </List>
-                    <Text style={styles.copyright}>Copyright 2017 CreativApp LLC.</Text>
-
                 </Content>
             </Container>
 
@@ -85,6 +87,10 @@ class Menu extends React.Component {
     }
 }
 
+/*
+
+
+ */
 const styles = {
     container: {
         backgroundColor: "#fff"
@@ -131,17 +137,16 @@ const styles = {
         backgroundColor: "#CACCCE",
         height: 0.6,
     },
+    menuBtn: {
+        height: 20
+    },
+    menuText:{
+      color: "#444444",
+      fontFamily: 'nova-regular'
+    },
     menuIcon: {
         marginRight: 20,
         marginLeft: 20
-    },
-    copyright:{
-        fontFamily: 'nova-regular',
-        fontSize: 14,
-        color: "#AAAAAA",
-        marginTop: 30,
-        left: 20,
-        marginBottom: 5
     }
 };
 

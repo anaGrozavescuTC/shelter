@@ -16,6 +16,7 @@ class Login extends React.Component {
     };
 
     signIn = () => {
+        this.props.navigation.navigate('Messages');
         if (this.state.email !== '' && this.state.password){
             this.props.navigation.navigate('Messages');
             console.log('Email: ', this.state.email);

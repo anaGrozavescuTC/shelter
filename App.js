@@ -8,8 +8,8 @@ export default class App extends React.Component {
     };
     async componentDidMount() {
         await Font.loadAsync({
-            'nova-regular': require('./assets/fonts/ProximaNova-AltRegular.ttf'),
-            'nova-bold': require('./assets/fonts/ProximaNova-AltBold.ttf')
+            'nova-regular': require('./assets/fonts/ProximaNova-Reg-webfont.ttf'),
+            'nova-bold': require('./assets/fonts/ProximaNova-Bold-webfont.ttf')
         });
         this.setState({fontLoaded: true});
     }
@@ -20,5 +20,3 @@ export default class App extends React.Component {
     );
   }
 }
-
-

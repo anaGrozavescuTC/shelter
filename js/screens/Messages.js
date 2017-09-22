@@ -1,6 +1,7 @@
 import React from 'react';
-import {View, Text, ScrollView, Image} from 'react-native';
+import {View, Text, Image} from 'react-native';
 import {Container, Header , Content, Button, List, ListItem, Thumbnail, Body} from 'native-base';
+import {messages} from '../services/data';
 
 var menuImage = require('../../assets/icons/menu-icon.png');
 var searchImage = require('../../assets/icons/search-icon.png');
@@ -10,6 +11,9 @@ class Messages extends React.Component {
 
     openMenu = () => {
         this.props.navigation.navigate('Menu');
+    };
+    openConversation = (messages, title, senders, info, date) => {
+        this.props.navigation.navigate('Conversation', {messages, title, senders, info, date});
     };
 
     render(){
@@ -34,41 +38,40 @@ class Messages extends React.Component {
                 <Content  style={styles.content}>
 
                     <View style={styles.line} />
-                    <ScrollView>
-                        <List style={styles.listItem}>
-                            <ListItem itemHeader first >
+                    <List style={styles.listItem}>
+                        {messages.map((msg, index) => (
+                            <ListItem key={index} itemHeader first onPress={()=>this.openConversation(messages, msg.title, msg.senders, msg.info, msg.lastDate)}>
                                 <View style={styles.imgContainer}>
-                                    <Thumbnail source={require('../../assets/img/Headshot1.png' )} />
-                                </View>
-                                <Body>
-                                    <View style={styles.titleGroup}>
-                                        <Text style={styles.msgSender}>Cindy</Text>
-                                        <Text note style={styles.msgDate}>Mon</Text>
-                                    </View>
+                                    {msg.senders.map((sender, index) => (
 
-                                    <Text note style={styles.msgTitle}>Join our Lunch-and-Learn</Text>
-                                    <Text note style={styles.msgInfo}>in 9410 SW 136th, Miami FL</Text>
-                                </Body>
-
-                            </ListItem>
-                            <ListItem itemHeader first >
-                                <View style={styles.imgContainer}>
-                                    <Thumbnail source={require('../../assets/img/Headshot2.png' )} />
+                                        <View key={index} >
+                                            {msg.senders.length === 1 ?
+                                                <Thumbnail source={{uri: sender.image}}/> :
+                                                <View style={styles.thumbContainer}>
+                                                <Thumbnail style={{ position: 'absolute', marginLeft: Number(index) * 10}} source={{uri: sender.image}}/>
+                                                </View>
+                                            }</View>
+                                            ))}
                                 </View>
                                 <Body>
                                 <View style={styles.titleGroup}>
-                                    <Text style={styles.msgSender}>Sam Jones</Text>
-                                    <Text note style={styles.msgDate}>Aug 10</Text>
+                                    {
+                                        msg.senders.map((sender, index) => (
+                                        <Text key={index} style={styles.msgSender}>{sender.name}
+                                            {
+                                                index + 1 !== msg.senders.length ? <Text>,</Text> : null
+                                            }
+                                        </Text>
+                                    ))}
+                                    <Text note style={styles.msgDate}>{msg.lastDate}</Text>
                                 </View>
-
-                                <Text note style={styles.msgTitle}>I think its time to build something different ...</Text>
-                                <Text note style={styles.msgInfo}>in Private Messages</Text>
+                                <Text note style={styles.msgTitle}>{msg.title}</Text>
+                                <Text note style={styles.msgInfo}>{msg.info}</Text>
                                 </Body>
-
                             </ListItem>
+                        ))}
+                    </List>
 
-                        </List>
-                    </ScrollView>
                 </Content>
 
             </Container>
@@ -116,6 +119,17 @@ const styles = {
     },
     imgContainer: {
         marginRight: 10
+    },
+    thumbContainer:{
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginRight: 60
+    },
+    multiThumb: {
+        position: 'absolute',
+        border: 1,
+        borderColor: '#fff'
+
     },
     titleGroup: {
         flexDirection: 'row',
