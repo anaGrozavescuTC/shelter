@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text, Image} from 'react-native';
 import {Container, Header , Content, Button, List, ListItem, Thumbnail, Body} from 'native-base';
 import {messages} from '../services/data';
+import {css} from '../styles';
 
 var menuImage = require('../../assets/icons/menu-icon.png');
 var searchImage = require('../../assets/icons/search-icon.png');
@@ -19,54 +20,45 @@ class Messages extends React.Component {
     render(){
         return(
             <Container>
-                <Header style={styles.header}>
+                <Header style={css.header}>
                     <Button transparent onPress={this.openMenu} >
-                        <Image source={menuImage}  style={styles.menuIcon}/>
+                        <Image source={menuImage}  style={css.menuIcon}/>
                     </Button>
-                    <Text style={styles.title}> Messages </Text>
+                    <Text style={css.headerTitle}> Messages </Text>
                     <Button transparent>
-                        <Image source={searchImage} style={styles.searchIcon} />
+                        <Image source={searchImage} style={css.searchIcon} />
                     </Button>
                 </Header>
-                <View style={styles.newMsgBtn}>
+                <View style={css.newMsgBtn}>
                     <Button full transparent iconLeft >
-                        <Image source={newMsgImage} style={styles.newMsgIcon}/>
-                        <Text style={styles.newMsgText}>New Message</Text>
+                        <Image source={newMsgImage} style={css.newMsgIcon}/>
+                        <Text style={css.newMsgText}>New Message</Text>
                     </Button>
                 </View>
 
-                <Content  style={styles.content}>
+                <Content  style={css.content}>
 
-                    <View style={styles.line} />
-                    <List style={styles.listItem}>
+                    <View style={css.line} />
+                    <List>
                         {messages.map((msg, index) => (
                             <ListItem key={index} itemHeader first onPress={()=>this.openConversation(messages, msg.title, msg.senders, msg.info, msg.lastDate)}>
-                                <View style={styles.imgContainer}>
-                                    {msg.senders.map((sender, index) => (
-
-                                        <View key={index} >
-                                            {msg.senders.length === 1 ?
-                                                <Thumbnail source={{uri: sender.image}}/> :
-                                                <View style={styles.thumbContainer}>
-                                                <Thumbnail style={{ position: 'absolute', marginLeft: Number(index) * 10}} source={{uri: sender.image}}/>
-                                                </View>
-                                            }</View>
-                                            ))}
+                                <View style={css.imgContainer}>
+                                    <Thumbnail key={index} source={{uri: msg.senders[msg.senders.length-1].image}}/>
                                 </View>
                                 <Body>
-                                <View style={styles.titleGroup}>
-                                    {
-                                        msg.senders.map((sender, index) => (
-                                        <Text key={index} style={styles.msgSender}>{sender.name}
-                                            {
-                                                index + 1 !== msg.senders.length ? <Text>,</Text> : null
-                                            }
-                                        </Text>
-                                    ))}
-                                    <Text note style={styles.msgDate}>{msg.lastDate}</Text>
-                                </View>
-                                <Text note style={styles.msgTitle}>{msg.title}</Text>
-                                <Text note style={styles.msgInfo}>{msg.info}</Text>
+                                    <View style={css.titleGroup}>
+                                        {
+                                            msg.senders.map((sender, index) => (
+                                            <Text key={index} style={styles.msgSender}>{sender.name}
+                                                {
+                                                    index + 1 !== msg.senders.length ? <Text>,</Text> : null
+                                                }
+                                            </Text>
+                                        ))}
+                                        <Text note style={styles.msgDate}>{msg.lastDate}</Text>
+                                    </View>
+                                    <Text note style={styles.msgTitle}>{msg.title}</Text>
+                                    <Text note style={styles.msgInfo}>{msg.info}</Text>
                                 </Body>
                             </ListItem>
                         ))}
@@ -83,43 +75,8 @@ class Messages extends React.Component {
 
 const styles = {
 
-    header: {
-        backgroundColor: "#22AAF2",
-        flexDirection: 'row',
-        justifyContent: 'space-between'
-    },
-    content: {
-        backgroundColor: "#fff"
-    },
-    menuIcon: {
-        marginTop: 10
-    },
-    searchIcon: {
-        marginTop: 10
-    },
-    title: {
-        color: "#fff",
-        fontSize: 16,
-        marginTop: 18,
-        fontFamily: 'nova-regular'
-    },
-    newMsgBtn: {
-      backgroundColor: "#fff"
-    },
-    newMsgIcon: {
-        marginRight: 10,
-    },
-    newMsgText: {
-        color: "#22AAF2",
-        fontFamily: 'nova-regular'
-    },
-    line: {
-        backgroundColor: "#CACCCE",
-        height: 0.6,
-    },
-    imgContainer: {
-        marginRight: 10
-    },
+
+
     thumbContainer:{
         flexDirection: 'row',
         alignItems: 'center',
@@ -131,14 +88,12 @@ const styles = {
         borderColor: '#fff'
 
     },
-    titleGroup: {
-        flexDirection: 'row',
-        justifyContent: 'space-between'
-    },
+
     msgSender: {
         fontFamily: 'nova-regular',
         fontSize: 16,
-        paddingBottom: 6
+        paddingBottom: 6,
+
     },
     msgDate: {
         fontFamily: 'nova-regular',

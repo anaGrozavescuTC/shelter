@@ -43,7 +43,7 @@ class Conversation extends React.Component {
 
                 <Content style={{backgroundColor: "#fff", top: 60} }>
                     <View>
-                        
+
                     </View>
                 </Content>
             </Container>
